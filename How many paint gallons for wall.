@@ -1,0 +1,51 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    const double sqftPerGal = 350;
+    const double tax = 0.07;
+    
+    double wallHeight;
+    double wallWidth;\
+    double paintCost;
+    double wallArea;
+    
+    double cost;
+    double gallons;
+    int cans;
+    double costTax;
+    double costFinal;
+    
+    cout<<"Enter height width and paint cost per gallon" << endl;
+    
+    cin>>wallHeight;
+    cin>>wallWidth;
+    cin>>paintCost;
+    
+    //calculations
+    wallArea = wallHeight * wallWidth;
+    
+    gallons = wallArea / sqftPerGal;
+    cans = ceil(gallons);
+    cost = gallons * paintCost;
+    
+    costTax = cost * tax;
+    
+    costFinal = cost + costTax;
+    
+    //print statements
+    cout<< fixed<< setprecision(1);
+    cout<<"Wall area: "<< wallArea << " sqft" <<endl;
+    cout<< setprecision(3);
+    cout<<"Paint needed: "<< gallons << " gallons" <<endl;
+    cout<<"Cans needed: "<< cans << " cans" <<endl;
+    cout<<"Paint cost: "<< cost << " dollars" <<endl;
+    cout<<"Sales tax: "<< costTax << " dollars" <<endl;
+    cout<<"Total cost: "<< costFinal << " dollars" <<endl;
+
+    return 0;
+}
