@@ -1,0 +1,31 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main()
+{
+    int highway;
+    
+    cout<<"Enter highway number:"<< endl;
+    cin>> highway;
+    
+    if (highway < 1 || highway % 100 == 0 || highway > 999) {
+    cout<<"Highway number is not valid."<< endl;
+    return 0;
+    }
+    
+    if (highway < 100)
+    cout<< "Highway I-" << highway<< " is primary, ";
+    
+    else 
+    cout<< "Highway I-"<<highway<< " is auxilary, ";
+    
+    if (highway % 2 == 0)
+    cout<< "going East to West." << endl;
+    
+    else 
+    cout<< "going North to South." << endl;
+
+    return 0;
+}
