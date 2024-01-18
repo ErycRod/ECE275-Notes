@@ -1,0 +1,21 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string first, last, login;
+    int number;
+    
+    cin>> first;
+    cin>> last;
+    cin>> number;
+    
+    login += last.substr(0, 5); //adds first 5 letters of last to login
+    login += first.at(0); //adds first letter of first to login
+    login += to_string(number); //converts number to string and adds to login
+    
+    cout<< login;
+    return 0;
+}
