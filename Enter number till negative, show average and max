@@ -1,0 +1,35 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    int num = 0;
+    int sum =0; 
+    int max = 0;
+    double count = 0;
+    double average;
+    
+    cout<< fixed<< setprecision(2);
+    
+    while (num >= 0) {
+        cout<< "Enter a number: ";
+        cin>> num;
+        
+        if (num < 0)
+            break;
+        
+        if (num > max)
+            max = num;
+        
+        count++;
+        sum += num;
+    }
+    
+    average = sum / count;
+    
+    cout<<"The sum of these numbers is: " << sum<< endl << "The average is "<< average;
+    
+    return 0;
+}
