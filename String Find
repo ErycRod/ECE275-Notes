@@ -1,0 +1,31 @@
+/*program that reads 2 strings on seperate lines and says whether:
+    string 1 is found in string 2, or vice versa
+    both phrases match
+    or there are no matches
+*/
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string s1, s2;
+    
+    getline(cin, s1);
+    getline(cin, s2);
+    
+    if (s1 == s2) 
+        cout<<"Both phrases match.";
+    
+    else if (s1.find(s2) != string::npos)
+        cout<<"Second phrase was found in first phrase.";
+    
+    else if (s2.find(s1) != string::npos)
+        cout<< "First phrase was found in second phrase.";
+        
+    else 
+        cout<<"No matches between phrases.";
+
+    return 0;
+}
