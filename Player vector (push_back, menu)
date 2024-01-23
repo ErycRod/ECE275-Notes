@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    vector<int> jersey(5);
+    vector<int> rating(5);
+    
+    cout<< "Enter 5 jersey numbers: "<< endl;
+    for (int i=0; i < 5; i++) {
+        cin >> jersey.at(i);
+    }
+    
+    cout<< "Enter 5 player's ratings: "<< endl;
+    for (int i=0; i < 5; i++) {
+        cin >> rating.at(i);
+    }
+    
+    cout<< "Roster: "<< endl;
+    for (int i=0; i < 5; i++) {
+        cout<< "Player "<< i+1 <<endl;
+        cout<< "Jersey no.: "<< jersey.at(i)<< endl;
+        cout<< "Rating: "<< rating.at(i)<< endl<< endl;
+    }
+    
+    char option = 'b'; //initialize option to 'b' to enter loop
+    while (option != 'q') {
+        //option O
+        if (option == 'o') {
+            cout<< "Roster: "<< endl;
+            for (int i=0; i < jersey.size(); i++) {
+                cout<< "Player "<< i+1 <<endl;
+                cout<< "Jersey no.: "<< jersey.at(i)<< endl;
+                cout<< "Rating: "<< rating.at(i)<< endl<< endl;
+            }
+        }
+        
+        //option A
+        else if (option == 'a') {
+            cout<< "Enter a jersey number: "<< endl;
+            int num;
+            cin>> num;
+            jersey.push_back(num);
+            
+            cout<< "Enter a rating: "<< endl;
+            int rate;
+            cin>> rate;
+            rating.push_back(rate);
+        }
+        
+        cout<< "MENU"<< endl<< "a- Add player"<< endl<< "o- Output roster"<< endl<< "q- Quit"<< endl;
+        cin>> option;
+    }
+    
+    return 0;
+}
