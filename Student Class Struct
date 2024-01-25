@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+struct student {
+    string firstname;
+    string lastname;
+    vector <int> exam = { 0,0,0 };
+    char finalgrade;
+};
+
+void initialize_Class(vector<student>& Class);
+int main() {
+    vector <student> Class(5);
+    initialize_Class(Class);
+    
+    double examAverage;
+    for (int i=0; i < 5; i++) {
+        examAverage = (Class.at(i).exam.at(0) + Class.at(i).exam.at(1) + Class.at(i).exam.at(2)) / 3.0;
+        if (examAverage >= 90)
+        Class.at(i).finalgrade = 'A';
+        
+        else if (examAverage < 90 && examAverage >= 80)
+        Class.at(i).finalgrade = 'B';
+        
+        else if (examAverage < 80 && examAverage >= 70)
+        Class.at(i).finalgrade = 'C';
+        
+        else if (examAverage < 70 && examAverage >= 60)
+        Class.at(i).finalgrade = 'D';
+        
+        else if (examAverage < 60)
+        Class.at(i).finalgrade = 'F';
+    }
+    for (int i=0; i < 5; i++) {
+        cout<< Class.at(i)<< "\t"<< Class.at(i).firstname;
+        cout<< "\t"<< Class.at(i).exam.at(0)<< "\t"<< Class.at(i).exam.at(1)<< "\t"<< Class.at(i).exam.at(2);
+    }
+    
+     return 0;
+}
+
+void initialize_Class(vector<student>& Class) {
+    Class.at(0).firstname = "Barrett"; Class.at(0).lastname = "Edan";
+    Class.at(0).exam = { 70,45,59 };
+    Class.at(1).firstname = "Bradshaw"; Class.at(1).lastname = "Reagan";
+    Class.at(1).exam = { 96,97,88 };
+    Class.at(2).firstname = "Charlton"; Class.at(2).lastname = "Caius";
+    Class.at(2).exam = { 73,94,80 };
+    Class.at(3).firstname = "Mayo"; Class.at(3).lastname = "Tyrese";
+    Class.at(3).exam = { 88,61,36 };
+    Class.at(4).firstname = "Stern"; Class.at(4).lastname = "Brenda";
+    Class.at(4).exam.at(0) = 90; Class.at(4).exam.at(1) = 86;
+    Class.at(4).exam.at(2) = 45;
+}
+
