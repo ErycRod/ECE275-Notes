@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void exactChange(int userTotal, vector<int>& coinVals){
+    coinVals.at(3) = userTotal / 25;
+    userTotal +=  -coinVals.at(3) * 25;
+    
+    coinVals.at(2) = userTotal /10;
+    userTotal += -coinVals.at(2) * 10;
+    
+    coinVals.at(1) = userTotal /5;
+    userTotal += -coinVals.at(1) * 5;
+    
+    coinVals.at(0) = userTotal;
+    userTotal += -coinVals.at(0);
+}
+
+int main()
+{
+    int inputVal;
+    vector<int> changeAmount(4); //pennies, nickels, dimes, quarters
+    
+    cout<<"Enter amount in cents: \n";
+    cin>> inputVal;
+    
+    exactChange(inputVal, changeAmount);
+    for (int i=0; i < 4; i++) {
+        if (i == 0) cout<< "Pennies: ";
+        if (i == 1) cout<< "Nickels: ";
+        if (i == 2) cout<< "Dimes: ";
+        if (i == 3) cout<< "Quarters: ";
+        
+        cout<< changeAmount.at(i)<< endl;
+    }
+
+
+    return 0;
+}
