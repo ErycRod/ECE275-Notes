@@ -1,0 +1,34 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    ifstream inFS;
+    int num;
+    
+    cout<< "Opening file numFile.txt"<< endl;
+    
+    inFS.open("numFile.txt");
+    if(!inFS.is_open()) {
+        cout<< "Error opening file numFile.txt"<< endl;
+        return -1;
+    }
+    
+    inFS>> num; //Read in first number from file, store in int num
+    
+    while(!inFS.fail()) { //Loop execute until inFS fails at reading value into num (last line of loop)
+        cout<< "Number: "<<num <<endl; //Output last number read
+        inFS>> num; //Read in next number from file
+    }
+    
+    if (inFS.eof()) {
+        cout<< "End of file reached"<< endl;
+    }
+    
+    cout<< "Closing file numFile.txt"<< endl;
+    inFS.close();
+
+    return 0;
+}
