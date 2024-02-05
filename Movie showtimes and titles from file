@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <vector>
+using namespace std;
+   
+struct Movie {
+   string movieName;
+   string rating;
+   vector<string> showtimes;
+};
+
+int main() {
+   string file;
+   cin>> file;
+   
+   ifstream inFS;
+   inFS.open(file);
+   if (!inFS.is_open()) {
+      cout<< "Error opening file.";
+      return -1;
+   }
+   
+   string showtime, movieName, rating;
+   
+   vector<Movie> movies;
+   
+   while (getline(inFS, showtime, ',')) {
+      getline(inFS, movieName, ',');
+      getline(inFS, rating);
+      
+      int flag = 0;
+      for (int i = 0; i < movies.size(); i++) {
+         if (movies.at(i).movieName == movieName) {
+            flag = 1;
+            movies.at(i).showtimes.push_back(showtime);
+            break;
+         }
+      }
+      if (flag == 0) { //same instance of movie was not found
+         Movie movie = {movieName, rating, {showtime}};
+         movies.push_back(movie);
+      }
+   }
+   
+   for (int i = 0; i < movies.size(); i++) {
+      cout<< left<< setw(44)<< movies.at(i).movieName.substr(0, 44)<< " | ";
+      cout<< right<< setw(5)<< movies.at(i).rating<< " | ";
+      for (int j = 0; j < movies.at(i).showtimes.size(); j++) {
+         if (j > 0 && j != movies.at(i).showtimes.size())
+            cout<<" ";
+         cout<< movies.at(i).showtimes.at(j);
+      }
+      cout<< endl;
+   }
+      
+   return 0;
+}
