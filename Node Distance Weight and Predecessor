@@ -1,0 +1,140 @@
+#include <iostream>
+#include <list>
+#include <vector>
+
+using namespace std;
+
+#define N 7
+#define UNDIRECT 1 	// set to 0 if DIRECT
+typedef struct node_struct {
+    char dest;
+    int weight;
+}node;
+
+class Graph {
+private:
+    int num_node;
+    list<node>* adjList;
+public:
+    Graph() : num_node(0), adjList(NULL) {}
+    Graph(int nodeCount) {
+        num_node = nodeCount;
+        adjList = new list<node>[num_node];
+    }
+    
+    void InsertEdge(char source, char dest, int weight) {
+        node temp;
+        temp.dest = dest;
+        temp.weight = weight;
+        adjList[source - 'A'].push_back(temp);
+        if (UNDIRECT) {
+            temp.dest = source;
+            temp.weight = weight;
+            adjList[dest - 'A'].push_back(temp);
+        }
+    }
+    
+    void displayGraph() {
+        list<node> tempList;
+        for (int i = 0; i < num_node; i++) {
+            tempList = adjList[i];
+            cout << (char)(i + 'A') << "--> ";
+            for (auto iter = tempList.begin(); iter != tempList.end(); iter++) {
+                cout << "(" << iter->dest << "/" << iter->weight << ") ";
+            }
+            cout << endl;
+        }
+    } 
+    //////////////////////////////////
+    void dijkstra(vector<int>& dist, vector<int>& predec, int start) {
+        list<int> Unvisit_Queue; //use as Queue
+        
+        //for each vertex currentV in graph {
+        //  currentV⇢distance = Infinity
+        //  currentV⇢predV = 0
+        //  Enqueue currentV in unvisitedQueue
+        //}
+        unsigned int node_i;
+        for (node_i = 0; node_i < num_node; node_i++) {
+            dist.push_back(999999);
+            predec.push_back(-99); //undefined predecessor
+            Unvisit_Queue.push_back(node_i);
+        }
+        
+       // startV has a distance of 0 from itself
+       //startV⇢distance = 0
+       dist.at(start) = 0;
+       
+       //while (unvisitedQueue is not empty) {
+          // Visit vertex with minimum distance from startV
+        //  currentV = DequeueMin unvisitedQueue
+        while (!Unvisit_Queue.empty()) {
+            int min = 999999;
+            int minindex;
+            
+            for (auto it = Unvisit_Queue.begin(); it != Unvisit_Queue.end(); it++) {
+                if (dist.at(*it) < min) {
+                    min = dist.at(*it);
+                    minindex = *it;
+                }
+            }
+            
+            Unvisit_Queue.remove(minindex);
+            int currV = minindex;
+            
+        //  for each vertex adjV adjacent to currentV {
+        //     edgeWeight = weight of edge from currentV to adjV
+        //     alternativePathDistance = currentV⇢distance + edgeWeight
+                
+             // If shorter path from startV to adjV is found,
+             // update adjV's distance and predecessor
+        //     if (alternativePathDistance < adjV⇢distance) {
+        //        adjV⇢distance = alternativePathDistance
+        //        adjV⇢predV = currentV
+        //     }
+        //  }
+       //}
+            for (auto it = adjList[currV].begin(); it != adjList[currV].end(); it++) {
+                if ((dist.at(currV) + it->weight) < dist.at(it->dest - 'A')){
+                    dist.at(it->dest - 'A') = (dist.at(currV) + (it->weight));
+                    predec.at(it->dest - 'A') = currV;
+                }
+            }
+            
+        }
+        
+    }
+    
+    //////////////////////////////////
+};
+int main(void) {
+    Graph mygraph(N);
+    mygraph.InsertEdge('A', 'B', 2);
+	mygraph.InsertEdge('A', 'C', 6);
+    mygraph.InsertEdge('B', 'D', 5);
+    mygraph.InsertEdge('C', 'D', 8);
+    mygraph.InsertEdge('D', 'E', 10);
+    mygraph.InsertEdge('D', 'F', 15);
+    mygraph.InsertEdge('E', 'F', 6);
+    mygraph.InsertEdge('E', 'G', 2);
+    mygraph.InsertEdge('F', 'G', 6);
+	
+	mygraph.displayGraph(); 
+
+    
+    vector<int> distV;
+    vector<int> predecV;
+    char chosen_node = 'A';
+    
+    mygraph.dijkstra(distV, predecV, chosen_node -'A');
+    
+    for (int i = 0; i < N; i++)
+        if ((i + 'A') != chosen_node)
+           cout << chosen_node << " to " << (char)(i + 'A') << ", Distance: " << distV.at(i) << " Previous: " << (char)(predecV.at(i) + 'A') << endl;
+
+    
+    return 0;
+}
+
+
+
