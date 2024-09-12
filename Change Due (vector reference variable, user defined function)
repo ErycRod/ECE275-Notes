@@ -3,38 +3,59 @@
 
 using namespace std;
 
-void exactChange(int userTotal, vector<int>& coinVals){
-    coinVals.at(3) = userTotal / 25;
-    userTotal +=  -coinVals.at(3) * 25;
-    
-    coinVals.at(2) = userTotal /10;
-    userTotal += -coinVals.at(2) * 10;
-    
-    coinVals.at(1) = userTotal /5;
-    userTotal += -coinVals.at(1) * 5;
-    
-    coinVals.at(0) = userTotal;
-    userTotal += -coinVals.at(0);
+void ExactChange(int userTotal, vector<int>& coinVals) {
+  // Type your code here
+  if (userTotal / 25 >= 1) {
+      coinVals.at(3) = userTotal/25;
+      userTotal = userTotal%25;
+  }
+  
+  if (userTotal / 10 >= 1) {
+      coinVals.at(2) = userTotal/10;
+      userTotal = userTotal%10;
+  }
+  
+  if (userTotal / 5>= 1) {
+      coinVals.at(1) = userTotal/5;
+      userTotal = userTotal%5;
+  }
+  
+  coinVals.at(0) = userTotal;
 }
 
-int main()
-{
+int main() {
+    
     int inputVal;
-    vector<int> changeAmount(4); //pennies, nickels, dimes, quarters
-    
-    cout<<"Enter amount in cents: \n";
-    cin>> inputVal;
-    
-    exactChange(inputVal, changeAmount);
-    for (int i=0; i < 4; i++) {
-        if (i == 0) cout<< "Pennies: ";
-        if (i == 1) cout<< "Nickels: ";
-        if (i == 2) cout<< "Dimes: ";
-        if (i == 3) cout<< "Quarters: ";
-        
-        cout<< changeAmount.at(i)<< endl;
+    vector<int> changeAmount(4); //p,n,d,q
+    cin >> inputVal;
+  
+    ExactChange(inputVal, changeAmount);
+  
+    if (inputVal == 0) {
+        cout<< "No change"<< endl;
     }
-
-
-    return 0;
+    
+    else {
+        if (changeAmount.at(3) > 0)
+        cout<< "Quarters: "<< changeAmount.at(3)<< endl;
+        
+        if (changeAmount.at(2) > 0)
+        cout<< "Dimes: "<< changeAmount.at(2)<< endl;
+        
+        if (changeAmount.at(1) > 0)
+        cout<< "Nickels: "<< changeAmount.at(1)<< endl;
+        
+        if (changeAmount.at(0) > 0) 
+        cout<< "Pennies: "<< changeAmount.at(0)<< endl;
+        
+    }
+    
+    
+    
+  
+  //call the function above
+  //display the answer as shown in the
+  //sample code execution
+  
+return 0;
 }
